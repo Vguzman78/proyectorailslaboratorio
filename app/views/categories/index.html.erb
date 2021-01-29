@@ -1,0 +1,38 @@
+<h1 class="h3 mb-2 text-gray-800 text-center">CATEGORIAS</h1>
+
+<div>  
+  <%= link_to new_category_path, {remote: true, class: "btn btn-outline-info btn-md",id: "anadir-categoria-btn"}  do %>
+    <span>Agregar Categoría</span>
+  <% end %>
+</div>
+<br />
+
+    <div class="table-responsive">
+       <table id="tablaCategorias" class="table table-bordered table-hover" width="100%">
+         <thead class="thead-dark">
+           <tr>
+             <th>Nombre Categoría</th>
+             <th>Descripcion</th>
+             <th>Editar</th>
+             <th>Eliminar</th>
+          
+           </tr>
+         </thead>
+         <tbody>
+         <% @categorias.each do |cat| %>
+                <tr id="categoria_<%= cat.id %>" >
+                <td class="text-dark"><%= cat.nombre %></td>
+                <td class="text-dark"><%= cat.descripcion %></td>
+                <td>
+                <%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-outline-info btn-md", remote: true} %>
+                </td>
+                <td>
+                <%= link_to 'Borrar', cat, remote: true, method: :delete, data: { confirm: "¿Borrar categoria: #{cat.nombre}?"}, class: "btn btn-outline-danger btn-md" %>
+                </td>
+            </tr>
+         <% end %>
+         </tbody>
+       </table>
+    </div>
+
+<%= render 'modal_categorias' %>

@@ -1,0 +1,45 @@
+<h1 class="h3 mb-2 text-gray-800 text-center">ALMACEN</h1>
+<div>  
+  <%= link_to new_warehouse_path, {class: "btn btn-outline-info btn-md", id: "registrar-entrada-btn"}  do %>
+    <span>Registrar Ingresos</span>
+  <% end %>
+</div>
+<br />
+<br />
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" id="tabla_almacen" width="60%" cellspacing="0">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Almacenista</th>
+            <th>Proveedor</th>
+            <th>Detalles</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% if @entradas_almacen.empty? %>
+          <tr> 
+            <td> No hay entradas </td><td></td><td></td><td></td><td></td> 
+          </tr>
+          <% else %>
+            <% @entradas_almacen.each do |entrada| %>
+              <tr> 
+                <td> <%= entrada.id %> </td>
+                <td> <%= entrada.user.email %> </td>
+                <td> <%= entrada.supplier.present? ? entrada.supplier.nombre : "Proveedor general" %> </td>
+                <td> 
+                  <%= link_to 'Detalles', warehouse_path(entrada), {class: "btn btn-outline-info btn-xs", remote: true} %> 
+                 </td>
+                 <td>
+                  <%= link_to 'Borrar', {action: 'destroy', id: entrada.id}, method: :delete, data: { confirm: 'Eliminar la entrada de almacen?' }, class: "btn btn-outline-danger btn-xs" %> 
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+    </table>
+    </div>
+<%= render 'modal_warehouse' %>
+
+

@@ -1,0 +1,37 @@
+<h1 class="h3 mb-2 text-gray-800 text-center">CLIENTES</h1>
+<div>  
+  <%= link_to new_client_path, {remote: true, class: "btn btn-outline-info btn-md", id: "anadir-cliente-btn"}  do %>
+    <span>Agregar Clientes</span>
+  <% end %>
+</div>
+<br />
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" id="tablaClientes" width="100%" cellspacing="0">
+        <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% @clientes.each do |clie| %>
+            <tr id="cliente_<%= clie.id %>" >
+                <td><%= clie.nombre %></td>
+                <td><%= clie.direccion %></td>
+                <td><%= clie.telefono %></td>
+                <td>
+                <%= link_to "editar", edit_client_path(clie), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                </td>
+                <td>
+                <%= link_to "Borrar", clie, remote: true, method: :delete, data: { confirm: "¿Borrar cliente: #{clie.nombre}?"}, class: "btn btn-danger btn-xs" %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    </div>
+<%= render 'modal_clientes' %>
